@@ -28,25 +28,25 @@ public class GameController {
     @Autowired
     private GameService gameService;
 
-    @PostMapping("/games")
+    @PostMapping("/admin/games")
     public ResponseEntity<GameDTO> createGame(@Valid @RequestBody GameDTO gameDTO) {
         GameDTO createdGame = gameService.createGame(gameDTO);
         return new ResponseEntity<>(createdGame, HttpStatus.CREATED);
     }
 
-    @PutMapping("/games")
+    @PutMapping("/admin/games")
     public ResponseEntity<GameDTO> updateGame(@Valid @RequestBody GameDTO gameDTO) {
         GameDTO updatedGame = gameService.updateGame(gameDTO);
         return new ResponseEntity<>(updatedGame, HttpStatus.OK);
     }
 
-    @GetMapping("/games/{gameId}")
+    @GetMapping("/public/games/{gameId}")
     public ResponseEntity<GameDTO> getGameById(@PathVariable Long gameId) {
         GameDTO game = gameService.getGameById(gameId);
         return new ResponseEntity<>(game, HttpStatus.OK);
     }
 
-    @GetMapping("/games")
+    @GetMapping("/public/games")
     public ResponseEntity<GameResponse> getAllGames(
             @RequestParam(defaultValue = "0") Integer pageNumber,
             @RequestParam(defaultValue = "10") Integer pageSize,
@@ -57,7 +57,7 @@ public class GameController {
         return new ResponseEntity<>(games, HttpStatus.OK);
     }
 
-    @DeleteMapping("/games/{gameId}")
+    @DeleteMapping("/admin/games/{gameId}")
     public ResponseEntity<Void> deleteGame(@PathVariable Long gameId) {
         gameService.deleteGame(gameId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
