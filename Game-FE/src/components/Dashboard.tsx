@@ -1,5 +1,5 @@
 import { useAuth } from "../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Dashboard = () => {
   const { logout } = useAuth();
@@ -37,6 +37,44 @@ const Dashboard = () => {
             <p>
               This is your dashboard. You can start managing games from here.
             </p>
+
+            <div className="row mt-4">
+              <div className="col-md-4 mb-3">
+                <div className="card">
+                  <div className="card-body">
+                    <h5 className="card-title">Categories</h5>
+                    <p className="card-text">Manage game categories</p>
+                    <Link to="/categories" className="btn btn-primary">
+                      Go to Categories
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-md-4 mb-3">
+                <div className="card">
+                  <div className="card-body">
+                    <h5 className="card-title">Games</h5>
+                    <p className="card-text">Manage games</p>
+                    <Link to="/games" className="btn btn-primary">
+                      Go to Games
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-md-4 mb-3">
+                <div className="card">
+                  <div className="card-body">
+                    <h5 className="card-title">Users</h5>
+                    <p className="card-text">Manage users</p>
+                    <button className="btn btn-secondary" disabled>
+                      Coming Soon
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>
