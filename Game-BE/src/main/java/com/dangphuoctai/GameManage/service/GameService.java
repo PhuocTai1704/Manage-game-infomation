@@ -1,5 +1,6 @@
 package com.dangphuoctai.GameManage.service;
 
+import com.dangphuoctai.GameManage.enums.TypeLanguage;
 import com.dangphuoctai.GameManage.payloads.dto.GameDTO;
 import com.dangphuoctai.GameManage.payloads.response.GameResponse;
 
@@ -10,7 +11,9 @@ public interface GameService {
 
     GameDTO getGameById(Long gameId);
 
-    GameResponse getAllGames(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
+    GameResponse getAllGames(String keyId, String gameName, TypeLanguage defaultLanguage, Long categoryId,
+            Integer pageNumber, Integer pageSize, String sortBy,
+            String sortOrder);
 
     void deleteGame(Long gameId);
 }

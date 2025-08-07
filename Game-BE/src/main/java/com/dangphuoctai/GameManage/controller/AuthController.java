@@ -20,7 +20,6 @@ import com.dangphuoctai.GameManage.payloads.response.AuthResponse;
 import com.dangphuoctai.GameManage.security.JWTUtil;
 import com.dangphuoctai.GameManage.service.AuthService;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 

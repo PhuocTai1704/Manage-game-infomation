@@ -3,6 +3,9 @@ package com.dangphuoctai.GameManage.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.GenericField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,12 +19,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Indexed
 @Data
 @Entity
 @Table(name = "categories")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Category {
+    @GenericField
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;

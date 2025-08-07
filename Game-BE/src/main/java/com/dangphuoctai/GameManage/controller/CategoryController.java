@@ -53,7 +53,11 @@ public class CategoryController {
             @RequestParam(defaultValue = "categoryId") String sortBy,
             @RequestParam(defaultValue = "asc") String sortOrder) {
 
-        CategoryResponse categories = categoryService.getAllCategories(pageNumber, pageSize, sortBy, sortOrder);
+        CategoryResponse categories = categoryService.getAllCategories(
+                pageNumber == 0 ? pageNumber : pageNumber - 1,
+                pageSize,
+                "id".equals(sortBy) ? "categoryId" : sortBy,
+                sortOrder);
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 

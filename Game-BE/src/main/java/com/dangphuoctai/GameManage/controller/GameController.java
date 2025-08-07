@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dangphuoctai.GameManage.enums.TypeLanguage;
 import com.dangphuoctai.GameManage.payloads.dto.GameDTO;
 import com.dangphuoctai.GameManage.payloads.response.GameResponse;
 import com.dangphuoctai.GameManage.service.GameService;
@@ -48,12 +49,20 @@ public class GameController {
 
     @GetMapping("/public/games")
     public ResponseEntity<GameResponse> getAllGames(
+            @RequestParam(required = false) String keyId,
+            @RequestParam(required = false) String gameName,
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(required = false) TypeLanguage defaultLanguage,
             @RequestParam(defaultValue = "0") Integer pageNumber,
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "gameId") String sortBy,
             @RequestParam(defaultValue = "asc") String sortOrder) {
+        GameResponse games = gameService.getAllGames(keyId, gameName, defaultLanguage, categoryId,
+                pageNumber == 0 ? pageNumber : pageNumber - 1,
+                pageSize,
+                "id".equals(sortBy) ? "gameId" : sortBy,
+                sortOrder);
 
-        GameResponse games = gameService.getAllGames(pageNumber, pageSize, sortBy, sortOrder);
         return new ResponseEntity<>(games, HttpStatus.OK);
     }
 

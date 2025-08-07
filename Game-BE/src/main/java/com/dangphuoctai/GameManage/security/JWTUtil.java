@@ -4,12 +4,10 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.Map;
-import java.util.StringJoiner;
+
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 import com.dangphuoctai.GameManage.payloads.dto.UserDTO;
 import com.nimbusds.jose.JOSEException;

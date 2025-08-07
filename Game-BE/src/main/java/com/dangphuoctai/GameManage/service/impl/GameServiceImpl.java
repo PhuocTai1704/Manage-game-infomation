@@ -26,6 +26,7 @@ import com.dangphuoctai.GameManage.payloads.response.GameResponse;
 import com.dangphuoctai.GameManage.repository.CategoryRepo;
 import com.dangphuoctai.GameManage.repository.GameNameRepo;
 import com.dangphuoctai.GameManage.repository.GameRepo;
+import com.dangphuoctai.GameManage.repository.GameSearchRepo;
 import com.dangphuoctai.GameManage.service.GameService;
 import com.dangphuoctai.GameManage.utils.CheckString;
 
@@ -37,6 +38,9 @@ public class GameServiceImpl implements GameService {
 
     @Autowired
     private GameRepo gameRepo;
+
+    @Autowired
+    private GameSearchRepo gameSearchRepo;
 
     @Autowired
     private GameNameRepo gameNameRepo;
@@ -74,7 +78,9 @@ public class GameServiceImpl implements GameService {
         game.setCategory(category);
         List<GameName> gameNames = gameDTO.getGameNames().stream()
                 .map(gameNameDTO -> {
-                    GameName gameName = modelMapper.map(gameNameDTO, GameName.class);
+                    GameName gameName = new GameName();
+                    gameName.setLanguage(gameNameDTO.getLanguage());
+                    gameName.setValue(gameNameDTO.getValue());
                     gameName.setGame(game);
                     return gameName;
                 }).collect(Collectors.toList());
@@ -131,7 +137,9 @@ public class GameServiceImpl implements GameService {
             if (existing != null) {
                 existing.setValue(gameNameDTO.getValue());
             } else {
-                GameName newGameName = modelMapper.map(gameNameDTO, GameName.class);
+                GameName newGameName = new GameName();
+                newGameName.setLanguage(gameNameDTO.getLanguage());
+                newGameName.setValue(gameNameDTO.getValue());
                 newGameName.setGame(game);
                 game.getGameNames().add(newGameName);
             }
@@ -155,11 +163,18 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public GameResponse getAllGames(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
+    public GameResponse getAllGames(String keyId, String gameName, TypeLanguage defaultLanguage, Long categoryId,
+            Integer pageNumber, Integer pageSize, String sortBy,
+            String sortOrder) {
         Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
         Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
-        Page<Game> pageGames = gameRepo.findAll(pageDetails);
+        // Specification<Game> specificationGame = GameSpecification.filter(keyId,
+        // gameName, categoryId, defaultLanguage);
+        // Page<Game> pageGames = gameSearch.searchGames(keyId, gameName, categoryId,
+        // defaultLanguage, pageDetails);
+        // Page<Game> pageGames = gameRepo.findAll(specificationGame, pageDetails);
+        Page<Game> pageGames = gameSearchRepo.searchGames(keyId, gameName, categoryId, defaultLanguage, pageDetails);
         List<GameDTO> gameDTOs = pageGames.getContent().stream()
                 .map(game -> modelMapper.map(game, GameDTO.class))
                 .collect(Collectors.toList());
@@ -200,4 +215,5 @@ public class GameServiceImpl implements GameService {
         return true;
 
     }
+
 }

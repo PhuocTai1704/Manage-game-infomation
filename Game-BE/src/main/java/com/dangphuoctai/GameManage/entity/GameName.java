@@ -1,5 +1,8 @@
 package com.dangphuoctai.GameManage.entity;
 
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
+
 import com.dangphuoctai.GameManage.enums.TypeLanguage;
 
 import jakarta.persistence.Column;
@@ -18,6 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Indexed
 @Data
 @Entity
 @Table(name = "game_names", uniqueConstraints = @UniqueConstraint(columnNames = { "game_id", "language" }))
@@ -32,6 +36,7 @@ public class GameName {
     @Enumerated(EnumType.STRING)
     private TypeLanguage language;
 
+    @FullTextField(analyzer = "standard")
     @Column(nullable = false)
     private String value;
 
