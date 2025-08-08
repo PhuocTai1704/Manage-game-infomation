@@ -1,69 +1,53 @@
-# React + TypeScript + Vite
+# Game Management Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend React + TypeScript + Vite cho hệ thống quản lý game. Giao diện Bootstrap, quản lý form với React Hook Form, bảng dữ liệu với TanStack Table, routing với React Router DOM.
 
-Currently, two official plugins are available:
+## Tính năng
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Auth: Login/ProtectedRoute
+- Game: Bảng dữ liệu (sort/filter/paginate), tìm kiếm, thêm/sửa/xóa, đa ngôn ngữ
+- Category: Danh sách và CRUD
+- Axios interceptors
 
-## Expanding the ESLint configuration
+## Công nghệ
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React 19, TypeScript 5, Vite 7
+- Bootstrap 5, React-Bootstrap
+- React Hook Form + Yup
+- TanStack Table
+- React Router DOM
+- Axios
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Cấu trúc
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├─ components/
+│  ├─ Games/         # Games.tsx, GameForm.tsx
+│  ├─ Categories/
+│  └─ common/
+├─ contexts/         # AuthContext.tsx
+├─ services/         # axiosInstance.ts, api.ts
+└─ main.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Cấu hình môi trường
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Tạo file `.env` tại `Game-FE/`:
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+VITE_API_BASE_URL=url_your_backend
+```
+
+## Lệnh chạy
+
+```bash
+npm install
+npm run dev     # http://localhost:3000
+npm run build
+npm run preview
+```
+
+## License
+
+MIT

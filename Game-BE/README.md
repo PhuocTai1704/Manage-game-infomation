@@ -1,20 +1,73 @@
-// Create a code repository on GitHub or GitLab
-// Use Java Spring Boot
-// Build a web application to manage game information, including two pages: Game
-// List and Game Registration
-// Create corresponding APIs to manage games
-// Use any type of database to store the data
+# Game Management Backend
 
-// Game List Page
-// Manage the list of games
-// Support search and filtering by category and keyword
-// Display the game list in table format with pagination
-// Support selecting multiple games to delete at once
-// Include a button to register a new game
+Backend API cho hệ thống quản lý game, xây dựng bằng Spring Boot. Hỗ trợ JWT auth, CRUD Game/Category, full-text search với Hibernate Search (Lucene), và Swagger.
 
-// Game Registration Page
-// Allow creation of new games or editing existing ones
-// Input basic game information and support multilingual game names
-// Manage input languages: add, remove, and set default language
-// Supported languages: English (EN), Korean (KO), Japanese (JA)
-// Validate the data before submitting
+## Tính năng
+
+- Auth: Đăng ký, đăng nhập, JWT (HS512)
+- Game: CRUD, đa ngôn ngữ (EN/KO/JA), tìm kiếm
+- Category: CRUD
+- Swagger: Tài liệu API
+- MySQL + JPA/Hibernate
+- Hibernate Search (Lucene) full-text
+
+## Công nghệ
+
+- Java 21, Spring Boot 3.5.4
+- Spring Security, Spring Data JPA
+- Nimbus JOSE+JWT, SpringDoc OpenAPI
+- Hibernate Search (Lucene)
+- MySQL, Maven
+
+## Cấu trúc
+
+```
+src/main/java/com/dangphuoctai/GameManage/
+├─ config/        ├─ controller/   ├─ entity/      ├─ enums/
+├─ exceptions/    ├─ payloads/     ├─ repository/  ├─ security/
+├─ service/       ├─ specification/└─ utils/
+```
+
+## Cấu hình
+
+- Database (trong `application.properties`):
+  - `spring.datasource.url=jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:manage_game}`
+  - `spring.datasource.username=${DB_USERNAME:root}`
+  - `spring.datasource.password=${DB_PASSWORD:}`
+- JWT:
+  - `jwt_secret=${SECRET_KEY}` (đặt biến môi trường `SECRET_KEY`)
+- Swagger UI: `/swagger-ui.html`
+- Hibernate Search (Lucene): lưu index tại `./lucene/indexes`
+
+## Chạy dự án
+
+```bash
+mvn clean install
+mvn spring-boot:run
+```
+
+## API chính
+
+- Auth:
+  - POST `/api/auth/register`
+  - POST `/api/auth/login`
+- Game:
+  - GET `/api/public/games`
+  - GET `/api/public/games/{id}`
+  - POST `/api/admin/games`
+  - PUT `/api/admin/games`
+  - DELETE `/api/admin/games/{id}`
+- Category:
+  - GET `/api/public/categories`
+  - GET `/api/public/categories/{id}`
+  - POST `/api/admin/categories`
+  - PUT `/api/admin/categories`
+  - DELETE `/api/admin/categories/{id}`
+
+## Tài liệu API
+
+- Swagger UI: http://localhost:8080/swagger-ui.html
+
+## License
+
+MIT
